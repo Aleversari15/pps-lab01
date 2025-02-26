@@ -6,6 +6,7 @@ package example.model;
  * while the withdrawal is allowed only if the balance greater or equal the withdrawal amount
  */
 public class SimpleBankAccount implements BankAccount {
+    private static final int WITHDRAWAL_FEE = 1;
 
     private double balance;
     private final AccountHolder holder;
@@ -33,8 +34,9 @@ public class SimpleBankAccount implements BankAccount {
 
     @Override
     public void withdraw(final int userID, final double amount) {
-        if (checkUser(userID) && isWithdrawAllowed(amount)) {
+        if (checkUser(userID) && isWithdrawAllowed(amount-WITHDRAWAL_FEE)) {
             this.balance -= amount;
+            this.balance -= WITHDRAWAL_FEE;
         }
     }
 
