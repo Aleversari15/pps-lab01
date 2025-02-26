@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SimpleBankAccountTest {
     private static final int DEPOSIT_AMOUNT = 100;
-    private static final int WITHDRAW_AMOUNT = 70;
+    private static final int SMALLER_WITHDRAW_AMOUNT = 70;
+    private static final int GREATER_WITHDRAW_AMOUNT = 150;
     private static final int WITHDRAWAL_FEE = 1;
     private static final int FIRST_BALANCE = 0;
     private static final int FIRST_ACCOUNT_HOLDER_ID = 1;
@@ -45,14 +46,22 @@ class SimpleBankAccountTest {
     @Test
     void testWithdraw() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
-        bankAccount.withdraw(accountHolder.getId(), WITHDRAW_AMOUNT);
-        assertEquals(DEPOSIT_AMOUNT-WITHDRAW_AMOUNT-WITHDRAWAL_FEE, bankAccount.getBalance());
+        bankAccount.withdraw(accountHolder.getId(), SMALLER_WITHDRAW_AMOUNT);
+        assertEquals(DEPOSIT_AMOUNT- SMALLER_WITHDRAW_AMOUNT -WITHDRAWAL_FEE, bankAccount.getBalance());
     }
 
     @Test
     void testWrongWithdraw() {
         bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
-        bankAccount.withdraw(SECOND_ACCOUNT_HOLDER_ID, WITHDRAW_AMOUNT);
+        bankAccount.withdraw(SECOND_ACCOUNT_HOLDER_ID, SMALLER_WITHDRAW_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
     }
+
+    @Test
+    void testWithdrawGreaterThanBalance(){
+        bankAccount.deposit(accountHolder.getId(), DEPOSIT_AMOUNT);
+        bankAccount.withdraw(accountHolder.getId(), GREATER_WITHDRAW_AMOUNT);
+        assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
+    }
+
 }
