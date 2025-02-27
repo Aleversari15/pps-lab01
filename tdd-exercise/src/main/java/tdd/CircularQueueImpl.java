@@ -1,6 +1,7 @@
 package tdd;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CircularQueueImpl implements CircularQueue{
@@ -29,10 +30,14 @@ public class CircularQueueImpl implements CircularQueue{
 
     @Override
     public int dequeue() {
-        int posElementToRemove = queuedElements%capacity;
-        this.queuedElements--;
-        return queue.remove(posElementToRemove);
-
+        if(!isEmpty()){
+            int posElementToRemove = (queuedElements%capacity)-1;
+            this.queuedElements--;
+            return queue.remove(posElementToRemove);
+        }
+        else{
+            throw new IllegalStateException();
+        }
     }
 
     @Override
@@ -43,5 +48,10 @@ public class CircularQueueImpl implements CircularQueue{
     @Override
     public boolean isEmpty() {
         return this.queue.isEmpty();
+    }
+
+    @Override
+    public List<Integer> getQueue() {
+        return Collections.unmodifiableList(this.queue);
     }
 }
