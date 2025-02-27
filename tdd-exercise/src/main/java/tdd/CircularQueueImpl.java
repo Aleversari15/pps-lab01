@@ -9,7 +9,6 @@ public class CircularQueueImpl implements CircularQueue{
     private final List<Integer> queue;
     private int queuedElements;
 
-
     public CircularQueueImpl(int capacity){
         this.capacity = capacity;
         this.queue = new ArrayList<>();
@@ -23,17 +22,16 @@ public class CircularQueueImpl implements CircularQueue{
             this.queue.add(value);
         }
         else{
-            int posToOverwrite = (queuedElements%capacity)-1;
-            queue.set(posToOverwrite, value);
+            queue.set(getOldestElementPosition(), value);
         }
     }
 
     @Override
     public int dequeue() {
         if(!isEmpty()){
-            int posElementToRemove = (queuedElements%capacity)-1;
+            int pos = getOldestElementPosition();
             this.queuedElements--;
-            return queue.remove(posElementToRemove);
+            return queue.remove(pos);
         }
         else{
             throw new IllegalStateException();
@@ -53,5 +51,9 @@ public class CircularQueueImpl implements CircularQueue{
     @Override
     public List<Integer> getQueue() {
         return Collections.unmodifiableList(this.queue);
+    }
+
+    private int getOldestElementPosition(){
+        return ((queuedElements%capacity)-1);
     }
 }

@@ -1,9 +1,7 @@
 package tdd;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -29,6 +27,7 @@ public class CircularListTest {
         assertFalse(this.queue.isEmpty());
     }
 
+    @Test
     public void testEnqueueWithFullList() {
         this.queue.enqueue(FIRST_VALUE);
         this.queue.enqueue(SECOND_VALUE);
@@ -44,11 +43,9 @@ public class CircularListTest {
         this.queue.enqueue(FIRST_VALUE);
         int oldSize = this.queue.getQueue().size();
         int valueRemoved = this.queue.dequeue();
-        assertEquals(valueRemoved, FIRST_VALUE);
+        assertEquals(FIRST_VALUE,valueRemoved);
         assertEquals(oldSize-1, this.queue.getQueue().size());
-
     }
-
 
     @Test
     void testDequeueWithEmptyStack() {
