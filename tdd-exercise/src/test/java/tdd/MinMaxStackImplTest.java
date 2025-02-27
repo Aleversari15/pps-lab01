@@ -56,4 +56,14 @@ class MinMaxStackImplTest {
         assertEquals(SECOND_TEST_VALUE, value);
     }
 
+    @Test
+    void testActionsWithEmptyStack() {
+        assertAll(
+                () -> assertThrows(IllegalStateException.class, () -> stack.pop()),
+                () -> assertThrows(IllegalStateException.class, () -> stack.peek()),
+                () -> assertThrows(IllegalStateException.class, () -> stack.getMin()),
+                () -> assertThrows(IllegalStateException.class, () -> stack.getMax())
+        );
+    }
+
 }
