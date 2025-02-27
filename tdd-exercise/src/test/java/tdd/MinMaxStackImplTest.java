@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MinMaxStackImplTest {
     private static final int TEST_VALUE = 1;
+    private static final int SECOND_TEST_VALUE = 5;
     private MinMaxStack stack;
 
     @BeforeEach
@@ -38,4 +39,21 @@ class MinMaxStackImplTest {
         assertEquals(TEST_VALUE, value);
         assertEquals(oldSize, this.stack.size());
     }
+
+    @Test
+    public void testMin() {
+        this.stack.push(TEST_VALUE);
+        this.stack.push(SECOND_TEST_VALUE);
+        int value = this.stack.getMin();
+        assertEquals(TEST_VALUE, value);
+    }
+
+    @Test
+    public void testMax() {
+        this.stack.push(TEST_VALUE);
+        this.stack.push(SECOND_TEST_VALUE);
+        int value = this.stack.getMax();
+        assertEquals(SECOND_TEST_VALUE, value);
+    }
+
 }
